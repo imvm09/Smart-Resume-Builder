@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Resume Builder - AI ATS Optimizer</title>
+    <style>
+        :root { --primary: #2563eb; --dark: #1e293b; --light: #f8fafc; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); color: var(--dark); margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: auto; display: grid; grid-template-columns: 1fr 1.15fr; gap: 25px; }
+        .header { grid-column: 1 / -1; background: var(--primary); color: white; padding: 20px; border-radius: 10px; text-align: center; }
+        .header h1 { margin: 0; font-size: 24px; }
+        .header p { margin: 5px 0 0; opacity: 0.9; font-size: 14px; }
+        .card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        h2 { margin-top: 0; font-size: 18px; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+        label { display: block; font-weight: 600; margin-top: 12px; font-size: 13px; color: #334155; }
+        input, textarea, select { width: 100%; padding: 9px; margin-top: 4px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: inherit; font-size: 13px; }
+        textarea { resize: vertical; }
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+        button { background: var(--primary); color: white; border: none; padding: 12px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; font-size: 14px; }
+        button:hover { background: #1d4ed8; }
+        .btn-secondary { background: #0f172a; }
+        .btn-secondary:hover { background: #334155; }
+        
+        /* Resume Output Styling (A4 ATS Optimized) */
+        #resume-output { border: 1px solid #cbd5e1; padding: 32px; background: white; min-height: 750px; }
+        .res-name { font-size: 26px; font-weight: bold; color: #0f172a; border-bottom: 2px solid var(--primary); padding-bottom: 4px; letter-spacing: 0.5px; }
+        .res-contact { font-size: 12.5px; color: #475569; margin: 5px 0 12px; }
+        .res-section { font-size: 14px; font-weight: bold; color: var(--primary); text-transform: uppercase; margin-top: 14px; border-bottom: 1px solid #cbd5e1; padding-bottom: 2px; letter-spacing: 0.5px; }
+        .res-text { font-size: 13px; line-height: 1.45; margin-top: 5px; color: #1e293b; }
+        .res-subhead { font-weight: bold; font-size: 13.5px; color: #0f172a; margin-top: 6px; display: flex; justify-content: space-between; }
+        ul { margin: 4px 0 0; padding-left: 18px; font-size: 13px; line-height: 1.45; color: #1e293b; }
+        li { margin-bottom: 3px; }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            body * { visibility: hidden; }
+            #resume-output, #resume-output * { visibility: visible; }
+            #resume-output { position: absolute; left: 0; top: 0; width: 100%; border: none; padding: 15px 25px; box-sizing: border-box; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Smart Resume Builder (AI ATS Optimizer)</h1>
+        <p>Powered by Gemini Prompt Logic | Mini Project 1: AI-Based Application Development</p>
+    </div>
+
+    <!-- Input Form -->
+    <div class="card">
+        <h2>1. Enter Candidate Details</h2>
+        
+        <label>Full Name</label>
+        <input type="text" id="name" value="Aarav Sharma">
+
+        <label>Contact Info (Email | Phone | Location | LinkedIn / GitHub)</label>
+        <input type="text" id="contact" value="aarav.sharma@email.com | +91-9876543210 | Ahmedabad, India | github.com/aaravdev">
+
+        <label>Target Job Role</label>
+        <select id="role">
+            <option value="Software Developer">Software Developer</option>
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="UI/UX Designer">UI/UX Designer</option>
+            <option value="Digital Marketer">Digital Marketer</option>
+        </select>
+
+        <label>Education (Degree, University, Graduation Year, CGPA)</label>
+        <input type="text" id="education" value="B.Tech in Computer Engineering, GTU (2022 - 2026) | CGPA: 8.6/10">
+
+        <label>Technical & Core Skills (Comma separated)</label>
+        <input type="text" id="skills" value="Python, JavaScript, React, HTML/CSS, SQL, Git, REST APIs">
+
+        <label>Job / Internship Experience (Role, Company, Duration & Rough Work)</label>
+        <textarea id="experience" rows="2">Web Development Intern at TechNova Solutions (May 2025 - July 2025) - Built responsive landing pages and fixed backend API bugs.</textarea>
+
+        <label>Key Academic Project (Title & Rough Description)</label>
+        <textarea id="project" rows="2">Smart Weather Dashboard - Made a weather website using Python and OpenWeather API that shows live temperature and rain forecast.</textarea>
+
+        <label>Certifications (One per line)</label>
+        <textarea id="certifications" rows="2">Google Cloud Generative AI Fundamentals Certificate
+AWS Academy Cloud Foundations Certified</textarea>
+
+        <label>Achievements & Extracurriculars (One per line)</label>
+        <textarea id="achievements" rows="2">1st Runner-Up at State-Level Smart India Hackathon 2025
+Solved 300+ Data Structures & Algorithms problems on LeetCode</textarea>
+
+        <div class="btn-group">
+            <button onclick="generateResume()">✨ Generate AI Resume</button>
+            <button class="btn-secondary" onclick="window.print()">🖨️ Export PDF</button>
+        </div>
+    </div>
+
+    <!-- Output Preview -->
+    <div class="card">
+        <h2>2. Live ATS-Friendly Resume Preview</h2>
+        <div id="resume-output">
+            <div class="res-name" id="out-name">Aarav Sharma</div>
+            <div class="res-contact" id="out-contact"></div>
+
+            <div class="res-section">Professional Summary</div>
+            <div class="res-text" id="out-summary"></div>
+
+            <div class="res-section">Education</div>
+            <div class="res-text" id="out-edu"></div>
+
+            <div class="res-section">Technical & Core Skills</div>
+            <div class="res-text" id="out-skills"></div>
+
+            <div id="sec-exp">
+                <div class="res-section">Experience / Internship</div>
+                <ul id="out-exp"></ul>
+            </div>
+
+            <div id="sec-proj">
+                <div class="res-section">Key Academic Project</div>
+                <ul id="out-project"></ul>
+            </div>
+
+            <div id="sec-cert">
+                <div class="res-section">Certifications</div>
+                <ul id="out-cert"></ul>
+            </div>
+
+            <div id="sec-ach">
+                <div class="res-section">Achievements & Leadership</div>
+                <ul id="out-ach"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function generateResume() {
+        const name = document.getElementById('name').value;
+        const contact = document.getElementById('contact').value;
+        const role = document.getElementById('role').value;
+        const edu = document.getElementById('education').value;
+        const skills = document.getElementById('skills').value;
+        const rawExp = document.getElementById('experience').value.trim();
+        const rawProject = document.getElementById('project').value.trim();
+        const rawCerts = document.getElementById('certifications').value.trim();
+        const rawAch = document.getElementById('achievements').value.trim();
+
+        const primarySkill = skills.split(',')[0]?.trim() || 'modern technologies';
+
+        // 1. Role-based AI Summary Templates
+        const summaries = {
+            "Software Developer": `Results-driven aspiring Software Developer with strong foundational expertise in ${skills}. Proven ability to engineer, test, and deploy scalable applications while writing clean, maintainable code.`,
+            "Data Analyst": `Detail-oriented aspiring Data Analyst skilled in ${skills}. Adept at transforming complex datasets into actionable insights through statistical modeling and structured reporting.`,
+            "UI/UX Designer": `Creative, user-centric UI/UX Designer proficient in ${skills}. Focused on designing intuitive digital interfaces that elevate user engagement and accessibility.`,
+            "Digital Marketer": `Analytical Digital Marketer equipped with hands-on skills in ${skills}. Experienced in optimizing online visibility, content strategy, and data-backed campaign growth.`
+        };
+
+        // 2. AI Experience Enhancer
+        if (rawExp !== "") {
+            document.getElementById('sec-exp').style.display = 'block';
+            const expParts = rawExp.split('-');
+            const expTitle = expParts[0].trim();
+            const expDesc = expParts.slice(1).join('-').trim() || rawExp;
+            document.getElementById('out-exp').innerHTML = `
+                <li><strong>${expTitle}:</strong> Spearheaded development tasks involving <em>${expDesc}</em>.</li>
+                <li><strong>Impact & Collaboration:</strong> Collaborated with cross-functional team members using ${primarySkill} to optimize system reliability and reduce turnaround time by 25%.</li>
+            `;
+        } else {
+            document.getElementById('sec-exp').style.display = 'none';
+        }
+
+        // 3. AI Project Enhancer
+        if (rawProject !== "") {
+            document.getElementById('sec-proj').style.display = 'block';
+            document.getElementById('out-project').innerHTML = `
+                <li><strong>System Architecture:</strong> Designed and implemented an end-to-end solution based on <em>"${rawProject}"</em>.</li>
+                <li><strong>Technical Execution:</strong> Leveraged ${primarySkill} and structured logic to deliver accurate, real-time outputs with a clean, responsive user interface.</li>
+            `;
+        } else {
+            document.getElementById('sec-proj').style.display = 'none';
+        }
+
+        // 4. Certifications Formatter (Line-by-line)
+        if (rawCerts !== "") {
+            document.getElementById('sec-cert').style.display = 'block';
+            const certLines = rawCerts.split('\n').filter(line => line.trim() !== "");
+            document.getElementById('out-cert').innerHTML = certLines.map(c => `<li><strong>Certified:</strong> ${c.trim()}</li>`).join('');
+        } else {
+            document.getElementById('sec-cert').style.display = 'none';
+        }
+
+        // 5. Achievements Formatter (Line-by-line)
+        if (rawAch !== "") {
+            document.getElementById('sec-ach').style.display = 'block';
+            const achLines = rawAch.split('\n').filter(line => line.trim() !== "");
+            document.getElementById('out-ach').innerHTML = achLines.map(a => `<li>${a.trim()}</li>`).join('');
+        } else {
+            document.getElementById('sec-ach').style.display = 'none';
+        }
+
+        // Populate Basic Fields
+        document.getElementById('out-name').innerText = name;
+        document.getElementById('out-contact').innerText = contact;
+        document.getElementById('out-summary').innerText = summaries[role];
+        document.getElementById('out-edu').innerText = edu;
+        document.getElementById('out-skills').innerText = skills.split(',').map(s => s.trim()).join(' • ');
+    }
+
+    window.onload = generateResume;
+</script>
+
+</body>
+</html>
