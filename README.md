@@ -35,4 +35,5 @@ The application operates on a 3-stage pipeline engineered using **Google Gemini*
 ---
 
 ## 📊 4. Final Presentation
-* **Canva Presentation:** [Paste your Canva Link Here after creating slides]
+* **Canva Presentation:** ##
+👉 https://canva.link/mzif9j2hurggflz
