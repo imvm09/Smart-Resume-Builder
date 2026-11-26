@@ -13,13 +13,20 @@
         .header p { margin: 5px 0 0; opacity: 0.9; font-size: 14px; }
         .card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         h2 { margin-top: 0; font-size: 18px; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
-        label { display: block; font-weight: 600; margin-top: 12px; font-size: 13px; color: #334155; }
+        h3 { font-size: 14px; color: #0f172a; margin: 18px 0 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+        label { display: block; font-weight: 600; margin-top: 10px; font-size: 13px; color: #334155; }
         input, textarea, select { width: 100%; padding: 9px; margin-top: 4px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-family: inherit; font-size: 13px; }
         textarea { resize: vertical; }
-        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
-        button { background: var(--primary); color: white; border: none; padding: 12px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; font-size: 14px; }
-        button:hover { background: #1d4ed8; }
-        .btn-secondary { background: #0f172a; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .exp-block { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 8px; margin-top: 10px; position: relative; }
+        .btn-add { background: #e2e8f0; color: #0f172a; border: 1px dashed #94a3b8; padding: 8px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; margin-top: 10px; width: 100%; }
+        .btn-add:hover { background: #cbd5e1; }
+        .btn-remove { background: #fee2e2; color: #b91c1c; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; float: right; }
+        .btn-remove:hover { background: #fecaca; }
+        .btn-group { display: flex; gap: 10px; margin-top: 22px; }
+        .btn-primary { background: var(--primary); color: white; border: none; padding: 12px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; font-size: 14px; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-secondary { background: #0f172a; color: white; border: none; padding: 12px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; font-size: 14px; }
         .btn-secondary:hover { background: #334155; }
         
         /* Resume Output Styling (A4 ATS Optimized) */
@@ -28,7 +35,9 @@
         .res-contact { font-size: 12.5px; color: #475569; margin: 5px 0 12px; }
         .res-section { font-size: 14px; font-weight: bold; color: var(--primary); text-transform: uppercase; margin-top: 14px; border-bottom: 1px solid #cbd5e1; padding-bottom: 2px; letter-spacing: 0.5px; }
         .res-text { font-size: 13px; line-height: 1.45; margin-top: 5px; color: #1e293b; }
-        .res-subhead { font-weight: bold; font-size: 13.5px; color: #0f172a; margin-top: 6px; display: flex; justify-content: space-between; }
+        .res-exp-item { margin-top: 8px; }
+        .res-subhead { font-weight: bold; font-size: 13.5px; color: #0f172a; display: flex; justify-content: space-between; }
+        .res-company { font-size: 13px; color: #334155; font-style: italic; margin-bottom: 3px; }
         ul { margin: 4px 0 0; padding-left: 18px; font-size: 13px; line-height: 1.45; color: #1e293b; }
         li { margin-bottom: 3px; }
 
@@ -49,7 +58,7 @@
 <div class="container">
     <div class="header">
         <h1>Smart Resume Builder (ATS Optimizer)</h1>
-        <p>Powered by Gemini Prompt Logic | Mini Project 1:Based Application Development</p>
+        <p>Structured Resume Formatting & ATS Optimization Tool</p>
     </div>
 
     <!-- Input Form -->
@@ -57,40 +66,83 @@
         <h2>1. Enter Candidate Details</h2>
         
         <label>Full Name</label>
-        <input type="text" id="name" value="">
+        <input type="text" id="name" placeholder="e.g., Rohan Sharma">
 
-        <label>Contact Info (Email | Phone | Location | LinkedIn / GitHub)</label>
-        <input type="text" id="contact" value="">
+        <h3>Contact Information</h3>
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="e.g., rohan@example.com">
 
+        <label>Phone Number</label>
+        <input type="text" id="phone" placeholder="e.g., +91 98765 43210">
+
+        <label>Location (City, State)</label>
+        <input type="text" id="location" placeholder="e.g., Bengaluru, India">
+
+        <label>LinkedIn / GitHub / Portfolio URL</label>
+        <input type="text" id="portfolio" placeholder="e.g., linkedin.com/in/rohansharma">
+
+        <h3>Target Role & Skills</h3>
         <label>Target Job Role</label>
         <select id="role">
+            <option value="">-- Select Target Role (Optional) --</option>
             <option value="Software Developer">Software Developer</option>
             <option value="Data Analyst">Data Analyst</option>
             <option value="UI/UX Designer">UI/UX Designer</option>
             <option value="Digital Marketer">Digital Marketer</option>
         </select>
 
-        <label>Education (Degree, University, Graduation Year, CGPA)</label>
-        <input type="text" id="education" value="">
-
         <label>Technical & Core Skills (Comma separated)</label>
-        <input type="text" id="skills" value="">
+        <input type="text" id="skills" placeholder="e.g., Python, SQL, React, Git">
 
-        <label>Job / Internship Experience (Role, Company, Duration & Rough Work)</label>
-        <textarea id="experience" rows="2"></textarea>
+        <h3>Education</h3>
+        <label>Degree / Program</label>
+        <input type="text" id="edu-degree" placeholder="e.g., B.Tech in Computer Science">
 
-        <label>Key Academic Project (Title & Rough Description)</label>
-        <textarea id="project" rows="2"></textarea>
+        <label>University / College Name</label>
+        <input type="text" id="edu-university" placeholder="e.g., National Institute of Technology">
+
+        <div class="grid-2">
+            <div>
+                <label>Graduation Year</label>
+                <input type="text" id="edu-year" placeholder="e.g., 2026">
+            </div>
+            <div>
+                <label>CGPA / Percentage</label>
+                <input type="text" id="edu-cgpa" placeholder="e.g., 8.7 CGPA">
+            </div>
+        </div>
+
+        <h3>Job / Internship Experience</h3>
+        <div id="experience-container">
+            <div class="exp-block">
+                <label style="margin-top:0;">Job / Internship Role</label>
+                <input type="text" class="exp-role" placeholder="e.g., Software Engineering Intern">
+
+                <label>Company / Organization</label>
+                <input type="text" class="exp-company" placeholder="e.g., TechNova Solutions">
+
+                <label>Duration</label>
+                <input type="text" class="exp-duration" placeholder="e.g., May 2025 – Aug 2025">
+
+                <label>Work Description & Responsibilities</label>
+                <textarea class="exp-desc" rows="2" placeholder="e.g., Built REST APIs and optimized database queries"></textarea>
+            </div>
+        </div>
+        <button type="button" class="btn-add" onclick="addExperienceField()">+ Add Experience</button>
+
+        <h3>Projects & Extras</h3>
+        <label>Key Academic Project (Title & Description)</label>
+        <textarea id="project" rows="2" placeholder="e.g., Inventory Management System - Built a full-stack tracking web app"></textarea>
 
         <label>Certifications (One per line)</label>
-        <textarea id="certifications" rows="2"></textarea>
+        <textarea id="certifications" rows="2" placeholder="e.g., AWS Certified Cloud Practitioner"></textarea>
 
         <label>Achievements & Extracurriculars (One per line)</label>
-        <textarea id="achievements" rows="2"></textarea>
+        <textarea id="achievements" rows="2" placeholder="e.g., Winner, Smart India Hackathon 2025"></textarea>
 
         <div class="btn-group">
-            <button onclick="generateResume()">✨ Generate Resume</button>
-            <button class="btn-secondary" onclick="window.print()">🖨️ Export PDF</button>
+            <button type="button" class="btn-primary" onclick="generateResume()">Generate Resume</button>
+            <button type="button" class="btn-secondary" onclick="window.print()">Export PDF</button>
         </div>
     </div>
 
@@ -101,18 +153,24 @@
             <div class="res-name" id="out-name"></div>
             <div class="res-contact" id="out-contact"></div>
 
-            <div class="res-section">Professional Summary</div>
-            <div class="res-text" id="out-summary"></div>
+            <div id="sec-summary">
+                <div class="res-section">Professional Summary</div>
+                <div class="res-text" id="out-summary"></div>
+            </div>
 
-            <div class="res-section">Education</div>
-            <div class="res-text" id="out-edu"></div>
+            <div id="sec-edu">
+                <div class="res-section">Education</div>
+                <div class="res-text" id="out-edu"></div>
+            </div>
 
-            <div class="res-section">Technical & Core Skills</div>
-            <div class="res-text" id="out-skills"></div>
+            <div id="sec-skills">
+                <div class="res-section">Technical & Core Skills</div>
+                <div class="res-text" id="out-skills"></div>
+            </div>
 
             <div id="sec-exp">
                 <div class="res-section">Experience / Internship</div>
-                <ul id="out-exp"></ul>
+                <div id="out-exp"></div>
             </div>
 
             <div id="sec-proj">
@@ -134,76 +192,181 @@
 </div>
 
 <script>
+    function addExperienceField() {
+        const container = document.getElementById('experience-container');
+        const block = document.createElement('div');
+        block.className = 'exp-block';
+        block.innerHTML = `
+            <button type="button" class="btn-remove" onclick="removeExperienceField(this)">Remove</button>
+            <label style="margin-top:0;">Job / Internship Role</label>
+            <input type="text" class="exp-role" placeholder="e.g., Frontend Developer Intern">
+
+            <label>Company / Organization</label>
+            <input type="text" class="exp-company" placeholder="e.g., Acme Corp">
+
+            <label>Duration</label>
+            <input type="text" class="exp-duration" placeholder="e.g., Jan 2025 – Apr 2025">
+
+            <label>Work Description & Responsibilities</label>
+            <textarea class="exp-desc" rows="2" placeholder="e.g., Developed responsive UI components and improved page load speed"></textarea>
+        `;
+        container.appendChild(block);
+    }
+
+    function removeExperienceField(btn) {
+        btn.parentElement.remove();
+        generateResume();
+    }
+
     function generateResume() {
-        const name = document.getElementById('name').value;
-        const contact = document.getElementById('contact').value;
-        const role = document.getElementById('role').value;
-        const edu = document.getElementById('education').value;
-        const skills = document.getElementById('skills').value;
-        const rawExp = document.getElementById('experience').value.trim();
-        const rawProject = document.getElementById('project').value.trim();
-        const rawCerts = document.getElementById('certifications').value.trim();
-        const rawAch = document.getElementById('achievements').value.trim();
-
-        const primarySkill = skills.split(',')[0]?.trim() || 'modern technologies';
-
-        // 1. Role-based Summary Templates
-        const summaries = {
-            "Software Developer": `Results-driven aspiring Software Developer with strong foundational expertise in ${skills}. Proven ability to engineer, test, and deploy scalable applications while writing clean, maintainable code.`,
-            "Data Analyst": `Detail-oriented aspiring Data Analyst skilled in ${skills}. Adept at transforming complex datasets into actionable insights through statistical modeling and structured reporting.`,
-            "UI/UX Designer": `Creative, user-centric UI/UX Designer proficient in ${skills}. Focused on designing intuitive digital interfaces that elevate user engagement and accessibility.`,
-            "Digital Marketer": `Analytical Digital Marketer equipped with hands-on skills in ${skills}. Experienced in optimizing online visibility, content strategy, and data-backed campaign growth.`
-        };
-
-        // 2. Experience Enhancer
-        if (rawExp !== "") {
-            document.getElementById('sec-exp').style.display = 'block';
-            const expParts = rawExp.split('-');
-            const expTitle = expParts[0].trim();
-            const expDesc = expParts.slice(1).join('-').trim() || rawExp;
-            document.getElementById('out-exp').innerHTML = `
-                <li><strong>${expTitle}:</strong> Spearheaded development tasks involving <em>${expDesc}</em>.</li>
-                <li><strong>Impact & Collaboration:</strong> Collaborated with cross-functional team members using ${primarySkill} to optimize system reliability and reduce turnaround time by 25%.</li>
-            `;
+        // 1. Name
+        const name = document.getElementById('name').value.trim();
+        const outName = document.getElementById('out-name');
+        if (name) {
+            outName.style.display = 'block';
+            outName.innerText = name;
         } else {
-            document.getElementById('sec-exp').style.display = 'none';
+            outName.style.display = 'none';
         }
 
-        // 3. Project Enhancer
+        // 2. Contact (Separate fields combined cleanly if filled)
+        const contactItems = [
+            document.getElementById('email').value.trim(),
+            document.getElementById('phone').value.trim(),
+            document.getElementById('location').value.trim(),
+            document.getElementById('portfolio').value.trim()
+        ].filter(Boolean);
+
+        const outContact = document.getElementById('out-contact');
+        if (contactItems.length > 0) {
+            outContact.style.display = 'block';
+            outContact.innerText = contactItems.join(' | ');
+        } else {
+            outContact.style.display = 'none';
+        }
+
+        // 3. Skills & Summary
+        const role = document.getElementById('role').value;
+        const rawSkills = document.getElementById('skills').value.trim();
+        const skillList = rawSkills ? rawSkills.split(',').map(s => s.trim()).filter(Boolean) : [];
+        const primarySkill = skillList[0] || 'modern technologies';
+        const skillText = skillList.length > 0 ? skillList.join(', ') : 'core industry tools';
+
+        const secSummary = document.getElementById('sec-summary');
+        if (role) {
+            const summaries = {
+                "Software Developer": `Results-driven aspiring Software Developer with strong foundational expertise in ${skillText}. Proven ability to engineer, test, and deploy scalable applications while writing clean, maintainable code.`,
+                "Data Analyst": `Detail-oriented aspiring Data Analyst skilled in ${skillText}. Adept at transforming complex datasets into actionable insights through statistical modeling and structured reporting.`,
+                "UI/UX Designer": `Creative, user-centric UI/UX Designer proficient in ${skillText}. Focused on designing intuitive digital interfaces that elevate user engagement and accessibility.`,
+                "Digital Marketer": `Analytical Digital Marketer equipped with hands-on skills in ${skillText}. Experienced in optimizing online visibility, content strategy, and data-backed campaign growth.`
+            };
+            secSummary.style.display = 'block';
+            document.getElementById('out-summary').innerText = summaries[role];
+        } else {
+            secSummary.style.display = 'none';
+        }
+
+        const secSkills = document.getElementById('sec-skills');
+        if (skillList.length > 0) {
+            secSkills.style.display = 'block';
+            document.getElementById('out-skills').innerText = skillList.join(' • ');
+        } else {
+            secSkills.style.display = 'none';
+        }
+
+        // 4. Education (Separate fields)
+        const degree = document.getElementById('edu-degree').value.trim();
+        const university = document.getElementById('edu-university').value.trim();
+        const year = document.getElementById('edu-year').value.trim();
+        const cgpa = document.getElementById('edu-cgpa').value.trim();
+
+        const secEdu = document.getElementById('sec-edu');
+        if (degree || university || year || cgpa) {
+            secEdu.style.display = 'block';
+            let eduHTML = '';
+            if (degree || year) {
+                eduHTML += `<div class="res-subhead"><span>${degree}</span><span>${year}</span></div>`;
+            }
+            const subDetails = [university, cgpa].filter(Boolean).join(' | ');
+            if (subDetails) {
+                eduHTML += `<div>${subDetails}</div>`;
+            }
+            document.getElementById('out-edu').innerHTML = eduHTML;
+        } else {
+            secEdu.style.display = 'none';
+        }
+
+        // 5. Dynamic Experience Blocks
+        const expBlocks = document.querySelectorAll('.exp-block');
+        const outExp = document.getElementById('out-exp');
+        let expHTML = '';
+
+        expBlocks.forEach(block => {
+            const expRole = block.querySelector('.exp-role').value.trim();
+            const expCompany = block.querySelector('.exp-company').value.trim();
+            const expDuration = block.querySelector('.exp-duration').value.trim();
+            const expDesc = block.querySelector('.exp-desc').value.trim();
+
+            if (expRole || expCompany || expDuration || expDesc) {
+                expHTML += `<div class="res-exp-item">`;
+                if (expRole || expDuration) {
+                    expHTML += `<div class="res-subhead"><span>${expRole}</span><span>${expDuration}</span></div>`;
+                }
+                if (expCompany) {
+                    expHTML += `<div class="res-company">${expCompany}</div>`;
+                }
+                if (expDesc) {
+                    expHTML += `<ul>
+                        <li><strong>Key Responsibilities:</strong> ${expDesc}</li>
+                        <li><strong>Impact & Execution:</strong> Collaborated with team members using ${primarySkill} to optimize system reliability and streamline workflow delivery.</li>
+                    </ul>`;
+                }
+                expHTML += `</div>`;
+            }
+        });
+
+        const secExp = document.getElementById('sec-exp');
+        if (expHTML !== '') {
+            secExp.style.display = 'block';
+            outExp.innerHTML = expHTML;
+        } else {
+            secExp.style.display = 'none';
+        }
+
+        // 6. Project
+        const rawProject = document.getElementById('project').value.trim();
+        const secProj = document.getElementById('sec-proj');
         if (rawProject !== "") {
-            document.getElementById('sec-proj').style.display = 'block';
+            secProj.style.display = 'block';
             document.getElementById('out-project').innerHTML = `
                 <li><strong>System Architecture:</strong> Designed and implemented an end-to-end solution based on <em>"${rawProject}"</em>.</li>
                 <li><strong>Technical Execution:</strong> Leveraged ${primarySkill} and structured logic to deliver accurate, real-time outputs with a clean, responsive user interface.</li>
             `;
         } else {
-            document.getElementById('sec-proj').style.display = 'none';
+            secProj.style.display = 'none';
         }
 
-        // 4. Certifications Formatter (Line-by-line)
+        // 7. Certifications
+        const rawCerts = document.getElementById('certifications').value.trim();
+        const secCert = document.getElementById('sec-cert');
         if (rawCerts !== "") {
-            document.getElementById('sec-cert').style.display = 'block';
+            secCert.style.display = 'block';
             const certLines = rawCerts.split('\n').filter(line => line.trim() !== "");
             document.getElementById('out-cert').innerHTML = certLines.map(c => `<li><strong>Certified:</strong> ${c.trim()}</li>`).join('');
         } else {
-            document.getElementById('sec-cert').style.display = 'none';
+            secCert.style.display = 'none';
         }
 
-        // 5. Achievements Formatter (Line-by-line)
+        // 8. Achievements
+        const rawAch = document.getElementById('achievements').value.trim();
+        const secAch = document.getElementById('sec-ach');
         if (rawAch !== "") {
-            document.getElementById('sec-ach').style.display = 'block';
+            secAch.style.display = 'block';
             const achLines = rawAch.split('\n').filter(line => line.trim() !== "");
             document.getElementById('out-ach').innerHTML = achLines.map(a => `<li>${a.trim()}</li>`).join('');
         } else {
-            document.getElementById('sec-ach').style.display = 'none';
+            secAch.style.display = 'none';
         }
-
-        // Populate Basic Fields
-        document.getElementById('out-name').innerText = name;
-        document.getElementById('out-contact').innerText = contact;
-        document.getElementById('out-summary').innerText = summaries[role];
-        document.getElementById('out-edu').innerText = edu;
-        document.getElementById('out-skills').innerText = skills.split(',').map(s => s.trim()).join(' • ');
     }
 
     window.onload = generateResume;
