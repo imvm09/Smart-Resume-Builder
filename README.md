@@ -1,5 +1,4 @@
-# 🚀 Smart Resume Builder (AI ATS Optimizer)
-**Lab Task:** 10.A — Mini Project 1: AI-Based Application Development  
+# 🚀 Smart Resume Builder (AI ATS Optimizer) 
 **Tools Used:** Google Gemini, HTML5/CSS3/JavaScript, Canva, GitHub Pages  
 
 ---
@@ -35,5 +34,6 @@ The application operates on a 3-stage pipeline engineered using **Google Gemini*
 ---
 
 ## 📊 4. Final Presentation
+* **Canva Presentation:** [Paste your Canva Link Here after creating slides]
 * **Canva Presentation:** ##
 👉 https://canva.link/mzif9j2hurggflz
