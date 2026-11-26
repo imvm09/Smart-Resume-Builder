@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Resume Builder - AI ATS Optimizer</title>
+    <title>Smart Resume Builder - ATS Optimizer</title>
     <style>
         :root { --primary: #2563eb; --dark: #1e293b; --light: #f8fafc; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--light); color: var(--dark); margin: 0; padding: 20px; }
@@ -48,8 +48,8 @@
 
 <div class="container">
     <div class="header">
-        <h1>Smart Resume Builder (AI ATS Optimizer)</h1>
-        <p>Powered by Gemini Prompt Logic | Mini Project 1: AI-Based Application Development</p>
+        <h1>Smart Resume Builder (ATS Optimizer)</h1>
+        <p>Powered by Gemini Prompt Logic | Mini Project 1:Based Application Development</p>
     </div>
 
     <!-- Input Form -->
@@ -89,7 +89,7 @@
         <textarea id="achievements" rows="2"></textarea>
 
         <div class="btn-group">
-            <button onclick="generateResume()">✨ Generate AI Resume</button>
+            <button onclick="generateResume()">✨ Generate Resume</button>
             <button class="btn-secondary" onclick="window.print()">🖨️ Export PDF</button>
         </div>
     </div>
@@ -147,7 +147,7 @@
 
         const primarySkill = skills.split(',')[0]?.trim() || 'modern technologies';
 
-        // 1. Role-based AI Summary Templates
+        // 1. Role-based Summary Templates
         const summaries = {
             "Software Developer": `Results-driven aspiring Software Developer with strong foundational expertise in ${skills}. Proven ability to engineer, test, and deploy scalable applications while writing clean, maintainable code.`,
             "Data Analyst": `Detail-oriented aspiring Data Analyst skilled in ${skills}. Adept at transforming complex datasets into actionable insights through statistical modeling and structured reporting.`,
@@ -155,7 +155,7 @@
             "Digital Marketer": `Analytical Digital Marketer equipped with hands-on skills in ${skills}. Experienced in optimizing online visibility, content strategy, and data-backed campaign growth.`
         };
 
-        // 2. AI Experience Enhancer
+        // 2. Experience Enhancer
         if (rawExp !== "") {
             document.getElementById('sec-exp').style.display = 'block';
             const expParts = rawExp.split('-');
@@ -169,7 +169,7 @@
             document.getElementById('sec-exp').style.display = 'none';
         }
 
-        // 3. AI Project Enhancer
+        // 3. Project Enhancer
         if (rawProject !== "") {
             document.getElementById('sec-proj').style.display = 'block';
             document.getElementById('out-project').innerHTML = `
